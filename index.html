@@ -1,11 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>FizzBuzz問題</title>
-</head>
-<body>
-    
-</body>
+  </head>
+  <body>
+    <h1>FizzBuzz問題</h1>
+
+    <form action="#">
+      <div>
+        fizzNum:
+        <input
+          id="fizz_num"
+          type="text"
+          placeholder="整数を入れでください"
+          value=""
+        />
+      </div>
+      <div>
+        buzzNum:
+        <input
+          id="buzz_num"
+          type="text"
+          placeholder="整数を入れてください"
+          value=""
+        />
+      </div>
+      <input id="button" type="button" onclick="func()" value="実行" />
+    </form>
+    <div id="output">【出力】</div>
+
+    <script>
+      const button = document.getElementById("button");
+      const output = document.getElementById("output");
+
+      function func() {
+        const fizz_num = document.getElementById("fizz_num").value;
+        const buzz_num = document.getElementById("buzz_num").value;
+
+        for (let i = 1; i < 100; i++) {
+          const p = document.createElement("p");
+
+          if (i % fizz_num === 0 && i % buzz_num === 0) {
+            p.setAttribute("id", `output_num${i}`);
+            output.appendChild(p);
+            let fizzBuzz = "FizzBuzz" + i;
+            document.getElementById(`output_num${i}`).innerHTML = fizzBuzz;
+          } else if (i % fizz_num === 0) {
+            p.setAttribute("id", `output_num${i}`);
+            output.appendChild(p);
+            let fizz = "Fizz " + i;
+            document.getElementById(`output_num${i}`).innerHTML = fizz;
+          } else if (i % buzz_num === 0) {
+            p.setAttribute("id", `output_num${i}`);
+            output.appendChild(p);
+            let buzz = "Buzz" + i;
+            document.getElementById(`output_num${i}`).innerHTML = buzz;
+          }
+        }
+      }
+    </script>
+  </body>
 </html>
