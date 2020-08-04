@@ -8,14 +8,12 @@
   <body>
     <h1>FizzBuzz問題</h1>
 
-    <form action="#">
       <div>
         fizzNum:
         <input
           id="fizz_num"
           type="text"
           placeholder="整数を入れでください"
-          value=""
         />
       </div>
       <div>
@@ -24,40 +22,69 @@
           id="buzz_num"
           type="text"
           placeholder="整数を入れてください"
-          value=""
         />
       </div>
-      <input id="button" type="button" onclick="func()" value="実行" />
-    </form>
+      <input type="button" onclick="func()" value="実行" />
+    
     <div id="output">【出力】</div>
 
     <script>
-      const button = document.getElementById("button");
       const output = document.getElementById("output");
 
       function func() {
-        const fizz_num = document.getElementById("fizz_num").value;
-        const buzz_num = document.getElementById("buzz_num").value;
+        const fizzNum = Number(document.getElementById("fizz_num").value);
+        const buzzNum = Number(document.getElementById("buzz_num").value);
 
-        for (let i = 1; i < 100; i++) {
+        const fizzInteger = Number.isInteger(fizzNum);
+        const buzzInteger = Number.isInteger(buzzNum);
+        
+        const element = document.getElementById("output");
+        function deleteElement(){
+            while (element.firstChild){
+              element.removeChild(element.firstChild);
+            } 
+        }
+        if (element.hasChildNodes()){
+          deleteElement();
+        }
+        if(fizzNum === 0 || buzzNum === 0){
+
           const p = document.createElement("p");
+          p.appendChild(document.createTextNode("整数値を入力してください"));
+          output.appendChild(p);
 
-          if (i % fizz_num === 0 && i % buzz_num === 0) {
-            p.setAttribute("id", `output_num${i}`);
-            output.appendChild(p);
-            let fizzBuzz = "FizzBuzz" + i;
-            document.getElementById(`output_num${i}`).innerHTML = fizzBuzz;
-          } else if (i % fizz_num === 0) {
-            p.setAttribute("id", `output_num${i}`);
-            output.appendChild(p);
-            let fizz = "Fizz " + i;
-            document.getElementById(`output_num${i}`).innerHTML = fizz;
-          } else if (i % buzz_num === 0) {
-            p.setAttribute("id", `output_num${i}`);
-            output.appendChild(p);
-            let buzz = "Buzz" + i;
-            document.getElementById(`output_num${i}`).innerHTML = buzz;
-          }
+        } else if(fizzInteger && buzzInteger){
+
+          for (let i = 1; i < 100; i++) {
+            
+              const p = document.createElement("p");
+
+              if (i % fizzNum === 0 && i % buzzNum === 0) {
+
+                p.setAttribute("id", `output_num${i}`);
+                p.appendChild(document.createTextNode(`FizzBuzz ${i}`));
+                output.appendChild(p);
+
+              } else if (i % fizzNum === 0) {
+
+                p.setAttribute("id", `output_num${i}`);            
+                p.appendChild(document.createTextNode(`Fizz ${i}`));
+                output.appendChild(p);
+
+              } else if (i % buzzNum === 0) {
+
+                p.setAttribute("id", `output_num${i}`);
+                p.appendChild(document.createTextNode(`Buzz ${i}`));
+                output.appendChild(p);
+
+              }
+          } 
+        }else{
+
+          const p = document.createElement("p");
+          p.appendChild(document.createTextNode("整数値を入力してください"));
+          output.appendChild(p);
+
         }
       }
     </script>
