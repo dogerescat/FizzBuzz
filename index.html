@@ -23,27 +23,36 @@
     <script>
       const output = document.getElementById("output");
       const button = document.getElementById("button");
-      button.addEventListener("click", func);
+      button.addEventListener("click", sortNumber);
 
-      function deleteElement(element) {
-        while (element.firstChild) {
-          element.removeChild(element.firstChild);
+      function deleteElement(e) {
+        while (e.firstChild) {
+          e.removeChild(e.firstChild);
         }
       }
 
-      function func() {
+      function checkDeleteElement(e){
+        if (e.hasChildNodes()) {
+            deleteElement(e);
+          }
+      }
+
+      function indicateError(){
+        const p = document.createElement("p");
+        p.appendChild(document.createTextNode("整数値を入力してください"));
+        output.appendChild(p);
+      }
+
+      function sortNumber() {
         let fizzNum = document.getElementById("fizz_num").value;
         let buzzNum = document.getElementById("buzz_num").value;
 
-        if (fizzNum === "" && buzzNum === "") {
-          fizzNum = null;
-          buzzNum = null;
-        } else if (fizzNum === "") {
-          fizzNum = null;
-          buzzNum = Number(buzzNum);
-        } else if (buzzNum === "") {
-          fizzNum = Number(fizzNum);
-          buzzNum = null;
+        const element = document.getElementById("output");
+        checkDeleteElement(element);
+
+        if (fizzNum === "" || buzzNum === "") {
+          indicateError();
+          return;
         } else {
           fizzNum = Number(fizzNum);
           buzzNum = Number(buzzNum);
@@ -51,12 +60,6 @@
 
         const fizzInteger = Number.isInteger(fizzNum);
         const buzzInteger = Number.isInteger(buzzNum);
-
-        const element = document.getElementById("output");
-
-        if (element.hasChildNodes()) {
-          deleteElement(element);
-        }
 
         if (fizzInteger && buzzInteger) {
           for (let i = 1; i < 100; i++) {
@@ -77,9 +80,7 @@
             }
           }
         } else {
-          const p = document.createElement("p");
-          p.appendChild(document.createTextNode("整数値を入力してください"));
-          output.appendChild(p);
+          indicateError();
         }
       }
     </script>
