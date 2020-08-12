@@ -1,11 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>FizzBuzz問題</title>
-</head>
-<body>
-    
-</body>
+  </head>
+  <body>
+    <h1>FizzBuzz問題</h1>
+
+    <div>
+      fizzNum:
+      <input id="fizz_num" type="text" placeholder="整数を入れでください" />
+    </div>
+    <div>
+      buzzNum:
+      <input id="buzz_num" type="text" placeholder="整数を入れてください" />
+    </div>
+
+    <input id="button" type="button" value="実行" />
+    <div id="output">【出力】</div>
+
+    <script>
+      const sortNumber = () => {
+        let fizzNum = document.getElementById("fizz_num").value;
+        let buzzNum = document.getElementById("buzz_num").value;
+
+        const element = document.getElementById("output");
+        
+        deleteElement(element);
+
+        if (fizzNum === "" || buzzNum === "") {
+          indicateError();
+          return;
+        } else {
+          fizzNum = Number(fizzNum);
+          buzzNum = Number(buzzNum);
+        }
+
+        const fizzInteger = Number.isInteger(fizzNum);
+        const buzzInteger = Number.isInteger(buzzNum);
+
+        if (fizzInteger && buzzInteger) {
+          for (let i = 1; i < 100; i++) {
+            const p = document.createElement("p");
+
+            if (i % fizzNum === 0 && i % buzzNum === 0) {
+              p.setAttribute("id", `output_num${i}`);
+              p.appendChild(document.createTextNode(`FizzBuzz ${i}`));
+              output.appendChild(p);
+            } else if (i % fizzNum === 0) {
+              p.setAttribute("id", `output_num${i}`);
+              p.appendChild(document.createTextNode(`Fizz ${i}`));
+              output.appendChild(p);
+            } else if (i % buzzNum === 0) {
+              p.setAttribute("id", `output_num${i}`);
+              p.appendChild(document.createTextNode(`Buzz ${i}`));
+              output.appendChild(p);
+            }
+          }
+        } else {
+          indicateError();
+        }
+      };
+
+      const output = document.getElementById("output");
+      const button = document.getElementById("button");
+
+      button.addEventListener("click", sortNumber);
+
+      const deleteElement = (e) => {
+        while (e.firstChild) {
+          e.removeChild(e.firstChild);
+        }
+      };
+
+      const indicateError = () => {
+        const p = document.createElement("p");
+        p.appendChild(document.createTextNode("整数値を入力してください"));
+        output.appendChild(p);
+      };
+    </script>
+  </body>
 </html>
