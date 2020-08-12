@@ -21,34 +21,13 @@
     <div id="output">【出力】</div>
 
     <script>
-      const output = document.getElementById("output");
-      const button = document.getElementById("button");
-      button.addEventListener("click", sortNumber);
-
-      function deleteElement(e) {
-        while (e.firstChild) {
-          e.removeChild(e.firstChild);
-        }
-      }
-
-      function checkDeleteElement(e){
-        if (e.hasChildNodes()) {
-            deleteElement(e);
-          }
-      }
-
-      function indicateError(){
-        const p = document.createElement("p");
-        p.appendChild(document.createTextNode("整数値を入力してください"));
-        output.appendChild(p);
-      }
-
-      function sortNumber() {
+      const sortNumber = () => {
         let fizzNum = document.getElementById("fizz_num").value;
         let buzzNum = document.getElementById("buzz_num").value;
 
         const element = document.getElementById("output");
-        checkDeleteElement(element);
+        
+        deleteElement(element);
 
         if (fizzNum === "" || buzzNum === "") {
           indicateError();
@@ -82,7 +61,24 @@
         } else {
           indicateError();
         }
-      }
+      };
+
+      const output = document.getElementById("output");
+      const button = document.getElementById("button");
+
+      button.addEventListener("click", sortNumber);
+
+      const deleteElement = (e) => {
+        while (e.firstChild) {
+          e.removeChild(e.firstChild);
+        }
+      };
+
+      const indicateError = () => {
+        const p = document.createElement("p");
+        p.appendChild(document.createTextNode("整数値を入力してください"));
+        output.appendChild(p);
+      };
     </script>
   </body>
 </html>
